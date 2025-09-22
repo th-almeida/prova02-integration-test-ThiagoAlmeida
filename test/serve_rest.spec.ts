@@ -3,22 +3,24 @@ import { SimpleReporter } from '../simple-reporter';
 import { StatusCodes } from 'http-status-codes';
 
 describe('ServeRest API', () => {
-  let idUsuario = '';
   const p = pactum;
   const rep = SimpleReporter;
-  //const basetest = 'https://v2.jokeapi.dev/endpoints'
-  const baseTestUrl = 'https://v2.jokeapi.dev'
+  const baseTestUrl = 'https://v2.jokeapi.dev';
 
   p.request.setDefaultTimeout(90000);
 
-  beforeAll(async () => {
+  beforeAll(() => {
     p.reporter.add(rep);
+  });
 
-    idUsuario = await p
+  it('deve responder ao ping com sucesso', async () => {
+    await p
       .spec()
       .get(`${baseTestUrl}/ping`)
       .expectStatus(StatusCodes.OK)
-      .expectBodyContains('Teste realizado com sucesso')
-
+      .expectJsonLike({
+        error: false,
+        ping: 'Pong!'
+      });
   });
 });
