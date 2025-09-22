@@ -1,6 +1,5 @@
 import pactum from 'pactum';
 import { SimpleReporter } from '../simple-reporter';
-import { faker } from '@faker-js/faker';
 import { StatusCodes } from 'http-status-codes';
 
 describe('ServeRest API', () => {
@@ -18,7 +17,7 @@ describe('ServeRest API', () => {
     idUsuario = await p
       .spec()
       .get(`${baseTestUrl}/ping`)
-      .expectStatus(StatusCodes.CREATED)
+      .expectStatus(StatusCodes.OK)
       .expectBodyContains('Teste realizado com sucesso')
 
   });
